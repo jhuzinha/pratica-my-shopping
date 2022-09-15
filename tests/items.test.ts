@@ -3,6 +3,12 @@ import app from '../src/app'
 import allFactories from './Fractories/fractory'
 import { prisma } from '../src/database';
 
+beforeAll(() => {
+  prisma.$executeRaw`
+  TRUNCATE TABLE items;
+  `
+})
+
 describe('Testa POST /items ', () => {
   it('Deve retornar 201, se cadastrado um item no formato correto', async () => {
     const item = allFactories.item;
